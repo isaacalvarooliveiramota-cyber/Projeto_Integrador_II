@@ -1,96 +1,82 @@
 # Projeto_Integrador_II
 Etapa 1
-# LifeGuard — O "Piloto Automático" da Casa
+# 🏫 CTBJ Conforto — Sistema Inteligente de Monitoramento do Ambiente Escolar
 
-> **Sistema inteligente e de baixo custo para monitoramento preventivo residencial com IoT e análise de padrões.**
-
----
-
-## Sobre o Projeto
-
-O **LifeGuard** é uma solução de automação residencial e IoT desenvolvida para transformar residências comuns em casas inteligentes focadas na **prevenção de acidentes** e no **uso eficiente de recursos**.
-
-Diferente de sistemas tradicionais que apenas ligam ou desligam dispositivos remotamente, o **LifeGuard** observa a rotina do ambiente, analisa comportamentos e identifica situações anormais antes que se tornem problemas graves.
+> **Transformar as condições dos ambientes escolares em dados inteligentes para identificar desconfortos, compreender suas causas e auxiliar a instituição na criação de ambientes melhores para a aprendizagem.**
 
 ---
 
-## Objetivo
+## 📌 Sobre o Projeto
 
-Desenvolver um sistema inteligente e de baixo custo capaz de monitorar uma residência, identificar situações anormais e auxiliar seus moradores na prevenção de acidentes e no desperdício de recursos.
+Em instituições de ensino como o **CTBJ**, salas de aula e laboratórios frequentemente enfrentam problemas ambientais como calor excessivo, pouca ventilação, iluminação inadequada, ruído elevado e desconforto térmico em horários específicos.
 
----
-
-## O que o LifeGuard detecta?
-
-* 💧 **Vazamento de água:** Detecta presença de líquidos em locais indevidos (ex: cozinha, lavanderia) e envia alertas imediatos.
-* 🔥 **Risco de incêndio:** Monitora variações bruscas de temperatura e presença de fumaça.
-* 🚪 **Porta ou janela aberta:** Monitora o status de aberturas e avisa sobre acessos esquecidos.
-* 💡 **Energia desperdiçada:** Identifica equipamentos ligados por longos períodos sem detecção de presença.
-* 🌡️ **Conforto térmico:** Analisa a temperatura ambiente e sugere ações de ventilação.
-* 🧍 **Presença e circulação:** Detecta ocupação no ambiente para automação de desligamento e análise de segurança.
+Tradicionalmente, a gestão só toma conhecimento dessas situações após reclamações dos alunos ou professores. O **CTBJ Conforto** surge para mudar esse paradigma: transformamos percepções subjetivas em **dados concretos e contínuos**, permitindo identificar o que está prejudicando o aprendizado, em quais horários e por quais motivos.
 
 ---
 
-## O Diferencial: "Índice da Casa"
+## 🎯 Objetivo
 
-Em vez de exibir apenas dados brutos e gráficos complexos, o LifeGuard consolida as leituras dos sensores em uma **avaliação intuitiva de 0 a 100**, permitindo que qualquer morador entenda o status da residência instantaneamente:
+Desenvolver um sistema inteligente de monitoramento ambiental de baixo custo para mapear as condições de conforto das salas de aula do CTBJ, diagnosticar as causas de desconforto e fornecer dados estratégicos para apoio à tomada de decisão da gestão escolar.
 
-### Status Geral da Casa: `92/100` 🟢
+---
 
-| Categoria | Ícone | Pontuação | Status |
+## 🔍 O que o CTBJ Conforto monitora?
+
+* 🌡️ **Temperatura:** Identifica calor ou frio excessivo e horários críticos de pico térmico nas salas.
+* 💧 **Umidade do Ar:** Monitora a qualidade e umidade do ar para garantir um ambiente saudável.
+* 🔊 **Nível de Ruído:** Mede a poluição sonora (em dB) durante as aulas e atividades práticas.
+* 💡 **Luminosidade:** Avalia se o nível de iluminação (em lux) está adequado para a leitura e estudo.
+* 👥 **Ocupação do Ambiente:** Estima a quantidade de pessoas no local para correlacionar com a lotação e sensação térmica.
+
+---
+
+## 🤖 O Diferencial: "Índice de Conforto"
+
+Em vez de exibir apenas dados brutos e gráficos complexos, o CTBJ Conforto consolida as leituras dos sensores em uma **avaliação intuitiva de 0 a 100**, permitindo diagnosticar a situação de cada sala instantaneamente:
+
+### 🏫 Sala 02 (Bloco A): `63/100` 🟡
+
+| Métrica | Ícone | Valor Lido | Status |
 | :--- | :---: | :---: | :---: |
-| **Segurança** | 🔥 | **98/100** | Excelente |
-| **Água** | 💧 | **94/100** | Normal |
-| **Energia** | ⚡ | **86/100** | Atenção |
-| **Conforto** | 🌡️ | **91/100** | Bom |
+| **Temperatura** | 🌡️ | **31,4 °C** | Crítico |
+| **Umidade** | 💧 | **68%** | Normal |
+| **Ruído** | 🔊 | **72 dB** | Atenção |
+| **Iluminação** | 💡 | **410 lux** | Adequado |
+| **Ocupação** | 👥 | **34 pessoas** | Alta |
+
+> ⚠️ **Principal Problema Identificado:** Temperatura elevada acima da média tolerada.
 
 ---
 
-## Aprendizado de Hábitos (IA + IoT)
+## 🧠 Análise de Padrões e Recomendações (IA + IoT)
 
-O sistema vai além de regras simples (`se sensor > X monte alerta`). Ele é projetado para aprender a rotina dos moradores:
+O sistema analisa o histórico de dados para identificar problemas recorrentes e gerar recomendações automáticas para a gestão da escola:
 
 > **Exemplo Prático:**
-> * **Rotina aprendida:** Os moradores costumam chegar em casa às 18:00.
-> * **Anomalia identificada:** Às 18:30, a casa está vazia, mas a TV e as luzes continuam ligadas.
-> * **Ação do LifeGuard:** ⚠️ *Alerta de comportamento incomum e sugestão de desligamento remoto.*
+> * **Padrão Detectado:** A Sala 02 apresenta temperatura elevada de forma recorrente entre 13h e 15h.
+> * **Diagnóstico:** Desconforto térmico no período da tarde decorrente de incidência solar direta e alta ocupação.
+> * **Ação Sugerida:** 💡 *Melhorar a ventilação natural, verificar ventiladores/ar-condicionado ou remanejar turmas para outro ambiente nesse intervalo.*
 
 ---
 
-## 🛠️ Tecnologias e Componentes
-
-### **Hardware (Sensores e Atuadores)**
-* **Microcontrolador:** ESP32 (Cérebro do sistema)
-* **Sensores:**
-  * Sensor de Temperatura e Umidade (DHT11/DHT22)
-  * Sensor de Fumaça/Gás (MQ-2)
-  * Sensor de Presença (PIR)
-  * Sensor de Vazamento de Água
-  * Sensor Magnético de Abertura (Reed Switch)
-* **Atuadores e Sinalizadores:** Módulo Relé, LEDs e Buzzer sonoro
-
-### **Software e Interface**
-* **Frontend:** HTML5, CSS3, JavaScript (Painel Web / Mobile)
-* **Backend & Processamento:** Python / Java
-* **Banco de Dados:** Armazenamento de histórico de leituras e eventos
-
----
-
-## Demonstração Prática (Maquete MVP)
-
-Para validação do projeto, foi desenvolvida uma maquete física interativa contendo:
-
-1. **Simulação de Vazamento:** Água aplicada no sensor dispara alerta sonoro e notificação no painel.
-2. **Simulação de Incêndio:** Elevação térmica / fumaça ativa o alarme de emergência.
-3. **Simulação de Desperdício:** Iluminação ativa em cômodo sem presença registrada.
-4. **Simulação de Segurança:** Abertura não planejada de portas ou janelas.
-
----
-
-## Estrutura do Repositório
+## 📱 Painel de Monitoramento (Dashboard)
 
 ```text
-├── docs/
-│   └── requisitos.md       # Documento de Requisitos do Sistema
-├── src/                    # Código-fonte (Firmware ESP32, Backend e Frontend)
-└── README.md               # Apresentação do projeto
+         🏫 CTBJ CONFORTO
+
+SALAS MONITORADAS: 12
+🟢 Confortáveis: 7  |  🟡 Atenção: 4  |  🔴 Críticas: 1
+
+────────────────────────────────────────────────────────
+
+MAIOR PROBLEMA ATUAL:
+🌡️ Sala 07 — 31,8 °C (Temperatura Crítica)
+
+────────────────────────────────────────────────────────
+
+📈 EVOLUÇÃO DA TEMPERATURA (SALA 07)
+08h  ████ 25°C
+10h  █████ 27°C
+12h  ██████ 30°C
+14h  ███████ 32°C  ⚠️ Pico de desconforto
+16h  █████ 28°C
