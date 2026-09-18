@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTBJ Conforto — Painel Técnico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">🛠️ CTBJ Conforto — Gestão de TI</div>
+        <nav>
+            <a href="index.html">Visão Alunos/Professores</a>
+            <a href="tecnico.html" class="active">Painel Técnico 🔒</a>
+            <button id="btn-theme" class="btn-theme">🌙 Modo Escuro</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Métricas de Infraestrutura -->
+        <section class="grid-summary">
+            <div class="card-summary">
+                <h4>Nós ESP32 Online</h4>
+                <p class="summary-val" id="total-nos">0 / 10</p>
+            </div>
+            <div class="card-summary alert-border">
+                <h4>Chamados / Reports</h4>
+                <p class="summary-val" id="total-chamados">0</p>
+            </div>
+            <div class="card-summary">
+                <h4>Status do Servidor MQTT</h4>
+                <p class="summary-val">🟢 Online</p>
+            </div>
+        </section>
+
+        <!-- NOVO: Caixa de Entrada de Reports dos Alunos -->
+        <section class="card-info alert-border">
+            <h3>🔔 Caixa de Entrada: Reports das Salas</h3>
+            <ul id="lista-reports" class="report-list">
+                <!-- Preenchido dinamicamente via JS -->
+            </ul>
+        </section>
+
+        <!-- Tabela de Controle de Hardware -->
+        <section class="card-table">
+            <h3>📋 Telemetria e Controle de Hardware (ESP32)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ambiente Escolar</th>
+                        <th>IP Local / RSSI</th>
+                        <th>Status do Nó</th>
+                        <th>Diagnóstico Remoto</th>
+                        <th>Comandos</th>
+                    </tr>
+                </thead>
+                <tbody id="tech-table-body">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card-info">
+            <h3>⚙️ Terminal de Logs (Aguardando Sensores)</h3>
+            <div class="terminal-box">
+                <p>[Sistema] Iniciando painel de monitoramento CTBJ...</p>
+                <p>[Rede] Aguardando conexão dos microcontroladores ESP32 na porta 1883...</p>
+                <p>[Alerta] Nenhum sensor detectado atualmente.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
