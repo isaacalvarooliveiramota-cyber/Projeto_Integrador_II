@@ -1,1 +1,132 @@
 
+:root {
+    --primary: #1e3a8a;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #0f172a;
+    --ok: #16a34a;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --border: #e2e8f0;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+.tech-theme {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --text: #f8fafc;
+    --border: #334155;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.navbar a.active, .navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.card-hero, .card-metric, .card-info, .card-summary, .card-table {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-hero {
+    text-align: center;
+}
+
+.score-box {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.badge-status {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.bg-ok { background-color: var(--ok); }
+.bg-warn { background-color: var(--warn); }
+.bg-danger { background-color: var(--danger); }
+
+.grid-metrics, .grid-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.card-metric {
+    text-align: center;
+}
+
+.card-metric .icon {
+    font-size: 2rem;
+}
+
+.card-metric .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.btn-action {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+}
+
+.protocol-list li {
+    margin-bottom: 0.5rem;
+}
