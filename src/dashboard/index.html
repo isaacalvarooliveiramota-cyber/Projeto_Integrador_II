@@ -11,12 +11,14 @@
         <div class="logo">🏫 CTBJ Conforto</div>
         <nav>
             <a href="index.html" class="active">Visão Alunos/Professores</a>
-            <a href="tecnico.html" class="btn-nav">Painel Técnico (TI/Manutenção) 🛠️</a>
+            <!-- O link agora abre o modal de senha -->
+            <a href="#" id="link-tecnico">Painel Técnico (TI/Manutenção) 🔒</a>
+            <button id="btn-theme" class="btn-theme">🌙 Modo Escuro</button>
         </nav>
     </header>
 
     <main class="container">
-        <!-- Seletor do Ambiente Escolar -->
+        <!-- Seletor do Ambiente -->
         <section class="card-hero">
             <div class="selector-container">
                 <label for="select-sala"><strong>Selecione o Ambiente Escolar:</strong></label>
@@ -37,44 +39,63 @@
             <h2 id="room-title">Status Ambiental — Primeiro Ano A</h2>
             <div class="score-box" id="score-container">
                 <span class="score-value" id="score-index">--</span>
-                <span class="score-label">/100 (Índice de Conforto)</span>
+                <span class="score-label">/100 (Índice)</span>
             </div>
             <div class="badge-status" id="status-badge">Carregando...</div>
         </section>
 
-        <!-- Leituras dos Sensores da Sala Selecionada -->
+        <!-- Sensores -->
         <section class="grid-metrics">
             <div class="card-metric">
                 <div class="icon">🌡️</div>
                 <h3>Temperatura</h3>
                 <p class="value" id="val-temp">-- °C</p>
-                <small id="st-temp">Normal</small>
+                <small id="st-temp">Aguardando sensor...</small>
             </div>
             <div class="card-metric">
                 <div class="icon">💧</div>
                 <h3>Umidade</h3>
                 <p class="value" id="val-umid">-- %</p>
-                <small id="st-umid">Normal</small>
+                <small id="st-umid">Aguardando sensor...</small>
             </div>
             <div class="card-metric">
                 <div class="icon">🔊</div>
                 <h3>Ruído</h3>
                 <p class="value" id="val-ruido">-- dB</p>
-                <small id="st-ruido">Normal</small>
+                <small id="st-ruido">Aguardando sensor...</small>
             </div>
             <div class="card-metric">
                 <div class="icon">💡</div>
                 <h3>Iluminação</h3>
                 <p class="value" id="val-luz">-- lux</p>
-                <small id="st-luz">Normal</small>
+                <small id="st-luz">Aguardando sensor...</small>
             </div>
         </section>
 
+        <!-- NOVO: Sistema de Reporte para Alunos/Professores -->
         <section class="card-info">
-            <h3>📢 Orientações para a Aula</h3>
-            <p id="orientacao-aula">Aguardando seleção do ambiente...</p>
+            <h3>⚠️ Reportar Problema no Ambiente</h3>
+            <p>Percebeu algum problema físico (ex: Ar-condicionado não gela, lâmpada queimada)? Envie um alerta direto para a TI.</p>
+            <div class="report-form">
+                <textarea id="texto-reporte" class="input-box" rows="3" placeholder="Descreva o problema observado nesta sala..."></textarea>
+                <button id="btn-enviar-reporte" class="btn-action" style="margin-top: 10px;">Enviar Reporte 🚀</button>
+            </div>
         </section>
     </main>
+
+    <!-- Modal de Senha para Acesso Técnico -->
+    <div id="modal-senha" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>🔒 Acesso Restrito</h3>
+            <p>Área exclusiva para TI e Manutenção. Insira a senha:</p>
+            <input type="password" id="input-senha" class="input-box" placeholder="Digite a senha...">
+            <p id="erro-senha" class="texto-erro hidden">Senha incorreta!</p>
+            <div class="modal-actions">
+                <button id="btn-cancelar-senha" class="btn-action bg-wait">Cancelar</button>
+                <button id="btn-confirmar-senha" class="btn-action">Acessar Painel</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
