@@ -1,1 +1,67 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTBJ Conforto — Painel Técnico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tech-theme">
+    <header class="navbar">
+        <div class="logo">🛠️ CTBJ Conforto — Central de Manutenção e TI</div>
+        <nav>
+            <a href="index.html">Visão Alunos/Professores</a>
+            <a href="tecnico.html" class="active">Painel Técnico</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="grid-summary">
+            <div class="card-summary">
+                <h4>Nós ESP32 Ativos</h4>
+                <p class="summary-val" id="total-nos">12 / 12</p>
+            </div>
+            <div class="card-summary alert-border">
+                <h4>Chamados Pendentes</h4>
+                <p class="summary-val" id="total-chamados">2</p>
+            </div>
+            <div class="card-summary">
+                <h4>Uptime da Rede Wi-Fi</h4>
+                <p class="summary-val">99.8%</p>
+            </div>
+        </section>
+
+        <section class="card-table">
+            <h3>📋 Telemetria e Alertas de Hardware em Tempo Real</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nó / Sala</th>
+                        <th>IP / RSSI</th>
+                        <th>Temp / Umid</th>
+                        <th>Ruído / Luz</th>
+                        <th>Status do Nó</th>
+                        <th>Ação Direcionada</th>
+                    </tr>
+                </thead>
+                <tbody id="tech-table-body">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card-info">
+            <h3>⚙️ Protocolos Automáticos de Acionamento (RN01 - RN05)</h3>
+            <ul class="protocol-list">
+                <li>🔴 <strong>RN01 (Manutenção):</strong> Temp > 28°C aciona chamado imediato para ar-condicionado.</li>
+                <li>🟡 <strong>RN02 (Docente):</strong> Som > 65dB aciona alarme visual na sala.</li>
+                <li>💡 <strong>RN03 (Manutenção):</strong> Luz < 300 lux com sala ocupada aciona checagem de lâmpadas.</li>
+                <li>🔌 <strong>RN05 (Equipe TI):</strong> Nó sem envio por > 15min dispara alerta de falha de conectividade.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
