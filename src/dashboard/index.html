@@ -1,1 +1,64 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTBJ Conforto — Visão da Sala</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">🏫 CTBJ Conforto</div>
+        <nav>
+            <a href="index.html" class="active">Visão Alunos/Professores</a>
+            <a href="tecnico.html" class="btn-nav">Painel Técnico (TI/Manutenção) 🛠️</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card-hero">
+            <h2>Status Ambiental — Sala 02 (Bloco A)</h2>
+            <div class="score-box" id="score-container">
+                <span class="score-value" id="score-index">--</span>
+                <span class="score-label">/100 (Índice de Conforto)</span>
+            </div>
+            <div class="badge-status" id="status-badge">Carregando...</div>
+        </section>
+
+        <section class="grid-metrics">
+            <div class="card-metric">
+                <div class="icon">🌡️</div>
+                <h3>Temperatura</h3>
+                <p class="value" id="val-temp">-- °C</p>
+                <small id="st-temp">Normal</small>
+            </div>
+            <div class="card-metric">
+                <div class="icon">💧</div>
+                <h3>Umidade</h3>
+                <p class="value" id="val-umid">-- %</p>
+                <small id="st-umid">Normal</small>
+            </div>
+            <div class="card-metric">
+                <div class="icon">🔊</div>
+                <h3>Ruído</h3>
+                <p class="value" id="val-ruido">-- dB</p>
+                <small id="st-ruido">Normal</small>
+            </div>
+            <div class="card-metric">
+                <div class="icon">💡</div>
+                <h3>Iluminação</h3>
+                <p class="value" id="val-luz">-- lux</p>
+                <small id="st-luz">Normal</small>
+            </div>
+        </section>
+
+        <section class="card-info">
+            <h3>📢 Orientações para a Aula</h3>
+            <p id="orientacao-aula">Aguardando leitura inicial dos sensores...</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
