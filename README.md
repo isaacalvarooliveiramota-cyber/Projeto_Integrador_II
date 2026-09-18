@@ -44,38 +44,34 @@ O sistema consolida as métricas dos sensores em uma avaliação de **0 a 100**,
 
 $$\text{Índice} = (\text{Térmico} \times 0{,}40) + (\text{Auditivo} \times 0{,}30) + (\text{Visual} \times 0{,}20) + (\text{Físico} \times 0{,}10)$$
 
-### Exemplo Prático: 🏫 Sala 02 (Bloco A) — `63/100` 🟡 (Atenção)
-
-| Métrica | Ícone | Valor Lido | Fator Associado | Status |
-| :--- | :---: | :---: | :---: | :---: |
-| **Temperatura** | 🌡️ | **31,4 °C** | Desconforto Térmico | Crítico |
-| **Umidade** | 💧 | **68%** | Desconforto Térmico | Normal |
-| **Ruído** | 🔊 | **72 dB** | Desconforto Auditivo | Atenção |
-| **Iluminação** | 💡 | **410 lux** | Desconforto Visual | Adequado |
-| **Ocupação** | 👥 | **34 pessoas** | Desconforto Físico | Alta |
-
-> ⚠️ **Diagnóstico:** Elevação térmica decorrente da incidência solar da tarde combinada à alta lotação. Notificação enviada à **Manutenção Predial**.
-
 ---
 
 ## 📱 Painel de Monitoramento (Dashboard Web)
 
+A interface web conta com duas visões distintas:
+
+1. **Visão Alunos/Professores (`index.html`):** Permite selecionar entre 10 ambientes da escola, visualizar a pontuação de conforto, acompanhar alertas locais e enviar *reports* de problemas prediais.
+2. **Painel Técnico (`tecnico.html`):** Acesso restrito por senha (`alvaroisaacctbj`) para as equipas de TI e Manutenção monitorizarem a saúde dos nós ESP32, gerirem chamados e visualizarem os *reports* enviados pelos alunos em tempo real.
+
+---
+
+## 📁 Estrutura do Repositório
+
 ```text
-         🏫 CTBJ CONFORTO — PAINEL GERAL
-
-SALAS MONITORADAS: 12
-🟢 Confortáveis: 7  |  🟡 Atenção: 4  |  🔴 Críticas: 1
-
-────────────────────────────────────────────────────────
-
-MAIOR PROBLEMA ATUAL:
-🌡️ Sala 07 — 31,8 °C (Desconforto Térmico) -> Encaminhado à Manutenção
-
-────────────────────────────────────────────────────────
-
-📈 EVOLUÇÃO DA TEMPERATURA (SALA 07)
-08h  ████ 25°C
-10h  █████ 27°C
-12h  ██████ 30°C
-14h  ███████ 32°C  ⚠️ Pico de desconforto
-16h  █████ 28°C
+Projeto_Integrador_II/
+├── README.md                 # Guia principal, instalação e visão geral
+├── docs/                     # Documentação técnica e relatórios
+│   ├── requisitos.md         # Requisitos funcionais, não funcionais e matriz
+│   ├── arquitetura.md        # Diagramas de arquitetura, fluxogramas e payloads
+│   └── testes.md             # Relatório de validação e casos de teste
+└── src/                      # Código-fonte e artefatos do produto final
+    ├── firmware/
+    │   └── main.ino          # Código C++ para gravação no ESP32
+    ├── dashboard/
+    │   ├── index.html        # Visão pública (Alunos e Professores)
+    │   ├── tecnico.html      # Painel operacional restrito (TI e Manutenção)
+    │   ├── style.css         # Estilização responsiva e suporte a Modo Claro/Escuro
+    │   └── script.js         # Lógica do Índice de Conforto, autenticação e reports
+    └── maquete/
+        ├── ctbj_conforto.pkt # Simulação física/rede no Cisco Packet Tracer
+        └── topologia_rede.png# Exportação em imagem da topologia de rede
