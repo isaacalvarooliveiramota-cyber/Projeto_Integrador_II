@@ -6,8 +6,8 @@
 // ============================================================================
 // CONFIGURAÇÕES DE REDE E SERVIDOR
 // ============================================================================
-const char* WIFI_SSID     = "SEU_NOME_DE_REDE_WIFI";
-const char* WIFI_PASSWORD = "SUA_SENHA_WIFI";
+const char* WIFI_SSID     = "SUA_REDE_WIFI";
+const char* WIFI_PASSWORD = "SUA_SENHA";
 const char* SERVER_URL    = "http://seu-servidor-api.com/api/leituras"; // Endpoint HTTP
 const char* SALA_ID       = "SALA_02_BLOCO_A";
 
