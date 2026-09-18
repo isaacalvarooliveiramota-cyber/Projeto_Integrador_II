@@ -1,84 +1,220 @@
-
-// Dados simulados da telemetria IoT do CTBJ
-const dadosSensores = {
-    sala: "Sala 02 (Bloco A)",
-    temp: 31.4,      // RN01: Crítico (> 28°C)
-    umid: 55.0,
-    ruido: 72.0,     // RN02: Atenção (> 65dB)
-    luz: 450.0,
-    presenca: true
+// Base de Dados Simulada (Aguardando Sensores Físicos)
+const salasData = {
+    "lab1": { nome: "Laboratório 1", conectado: false },
+    "lab2": { nome: "Laboratório 2", conectado: false },
+    "bib":  { nome: "Biblioteca",    conectado: false },
+    "1a":   { nome: "Primeiro Ano A", conectado: false },
+    "1b":   { nome: "Primeiro Ano B", conectado: false },
+    "1c":   { nome: "Primeiro Ano C", conectado: false },
+    "2a":   { nome: "Segundo Ano A", conectado: false },
+    "2b":   { nome: "Segundo Ano B", conectado: false },
+    "3a":   { nome: "Terceiro Ano A", conectado: false },
+    "3b":   { nome: "Terceiro Ano B", conectado: false }
 };
 
-// Algoritmo de cálculo do Índice de Conforto (RN04)
-function calcularIndiceConforto(t, r, l, p) {
-    let subT = t > 28 ? 40 : 100;
-    let subA = r > 65 ? 50 : 100;
-    let subV = l < 300 ? 50 : 100;
-    let subF = p ? 80 : 100;
+// ==========================================
+// LÓGICA DA VISÃO DO ALUNO / PROFESSOR
+// ==========================================
+function carregarDadosSala(salaKey) {
+    const dados = salasData[salaKey];
+    if (!dados) return;
 
-    let indice = (subT * 0.40) + (subA * 0.30) + (subV * 0.20) + (subF * 0.10);
-    return Math.round(indice);
-}
+    const titleElem = document.getElementById("room-title");
+    if (titleElem) titleElem.innerText = `Status Ambiental — ${dados.nome}`;
 
-// Atualização da Visão Pública (Alunos/Professores)
-function atualizarPaginaAlunos() {
     const scoreElem = document.getElementById("score-index");
-    if (!scoreElem) return; // Se não estiver na página do aluno, encerra
-
-    const score = calcularIndiceConforto(dadosSensores.temp, dadosSensores.ruido, dadosSensores.luz, dadosSensores.presenca);
-    scoreElem.innerText = score;
-
-    document.getElementById("val-temp").innerText = `${dadosSensores.temp} °C`;
-    document.getElementById("val-umid").innerText = `${dadosSensores.umid} %`;
-    document.getElementById("val-ruido").innerText = `${dadosSensores.ruido} dB`;
-    document.getElementById("val-luz").innerText = `${dadosSensores.luz} lux`;
-
     const badge = document.getElementById("status-badge");
-    const orientacao = document.getElementById("orientacao-aula");
 
-    if (score >= 80) {
-        badge.innerText = "🟢 AMBIENTE CONFORTÁVEL";
-        badge.className = "badge-status bg-ok";
-        orientacao.innerText = "Condições ideais para aula e concentração.";
-    } else if (score >= 60) {
-        badge.innerText = "🟡 ATENÇÃO — ELEVAÇÃO TÉRMICA E RUÍDO";
-        badge.className = "badge-status bg-warn";
-        orientacao.innerText = "Recomendação: Manter portas/janelas abertas e ligar ventiladores de apoio.";
-    } else {
-        badge.innerText = "🔴 AMBIENTE CRÍTICO";
-        badge.className = "badge-status bg-danger";
-        orientacao.innerText = "Solicitada intervenção da Manutenção Predial.";
+    if (!dados.conectado) {
+        if (scoreElem) scoreElem.innerText = "--";
+        document.getElementById("val-temp").innerText = "-- °C";
+        document.getElementById("val-umid").innerText = "-- %";
+        document.getElementById("val-ruido").innerText = "-- dB";
+        document.getElementById("val-luz").innerText = "-- lux";
+        
+        document.getElementById("st-temp").innerText = "Aguardando hardware...";
+        
+        if(badge) {
+            badge.innerText = "⚪ AGUARDANDO CONEXÃO DO ESP32";
+            badge.className = "badge-status bg-wait";
+        }
     }
 }
 
-// Atualização da Visão Técnica (TI/Manutenção)
-function atualizarPaginaTecnica() {
-    const tableBody = document.getElementById("tech-table-body");
-    if (!tableBody) return; // Se não estiver na página do técnico, encerra
+// Lógica de Envio de Reporte (Salva no LocalStorage do Navegador)
+function inicializarSistemaReporte() {
+    const btnEnviar = document.getElementById("btn-enviar-reporte");
+    if (!btnEnviar) return; // Só roda na página index.html
 
-    const nos = [
-        { sala: "Sala 02 (Bloco A)", ip: "192.168.1.102", rssi: "-58 dBm", temp: "31.4 °C", umid: "55%", ruido: "72 dB", luz: "450 lux", st: "🟡 Alerta", acao: "Atender Manutenção (Ar-Cond.)" },
-        { sala: "Lab. Informática 01", ip: "192.168.1.105", rssi: "-62 dBm", temp: "22.1 °C", umid: "60%", ruido: "45 dB", luz: "520 lux", st: "🟢 OK", acao: "Nenhuma" },
-        { sala: "Sala 07 (Bloco B)", ip: "192.168.1.110", rssi: "OFFLINE", temp: "--", umid: "--", ruido: "--", luz: "--", st: "🔴 Falha (RN05)", acao: "Verificar Nó ESP32 (TI)" }
-    ];
+    btnEnviar.addEventListener("click", () => {
+        const texto = document.getElementById("texto-reporte").value;
+        const select = document.getElementById("select-sala");
+        const salaNome = select.options[select.selectedIndex].text;
+
+        if (texto.trim() === "") {
+            alert("Por favor, descreva o problema antes de enviar.");
+            return;
+        }
+
+        // Cria o objeto do reporte
+        const novoReporte = {
+            id: Date.now(),
+            sala: salaNome,
+            mensagem: texto,
+            data: new Date().toLocaleString()
+        };
+
+        // Puxa relatórios antigos do navegador e adiciona o novo
+        let reportsSalvos = JSON.parse(localStorage.getItem("ctbj_reports") || "[]");
+        reportsSalvos.push(novoReporte);
+        localStorage.setItem("ctbj_reports", JSON.stringify(reportsSalvos));
+
+        alert("✅ Reporte enviado com sucesso! A equipe técnica foi notificada.");
+        document.getElementById("texto-reporte").value = "";
+    });
+}
+
+// Lógica de Autenticação (Senha para o Painel Técnico)
+function inicializarAutenticacao() {
+    const linkTecnico = document.getElementById("link-tecnico");
+    const modalSenha = document.getElementById("modal-senha");
+    const btnCancelar = document.getElementById("btn-cancelar-senha");
+    const btnConfirmar = document.getElementById("btn-confirmar-senha");
+    const inputSenha = document.getElementById("input-senha");
+    const erroSenha = document.getElementById("erro-senha");
+
+    if (!linkTecnico || !modalSenha) return;
+
+    linkTecnico.addEventListener("click", (e) => {
+        e.preventDefault();
+        modalSenha.classList.remove("hidden");
+        inputSenha.value = "";
+        erroSenha.classList.add("hidden");
+        inputSenha.focus();
+    });
+
+    btnCancelar.addEventListener("click", () => {
+        modalSenha.classList.add("hidden");
+    });
+
+    function verificarSenha() {
+        if (inputSenha.value === "alvaroisaacctbj") {
+            window.location.href = "tecnico.html"; // Libera o acesso
+        } else {
+            erroSenha.classList.remove("hidden"); // Mostra erro
+        }
+    }
+
+    btnConfirmar.addEventListener("click", verificarSenha);
+    inputSenha.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") verificarSenha();
+    });
+}
+
+// ==========================================
+// LÓGICA DA VISÃO TÉCNICA (TI / MANUTENÇÃO)
+// ==========================================
+function carregarTabelaTecnica() {
+    const tableBody = document.getElementById("tech-table-body");
+    if (!tableBody) return; // Só roda na página tecnico.html
 
     tableBody.innerHTML = "";
-    nos.forEach(no => {
+
+    Object.keys(salasData).forEach(key => {
+        const item = salasData[key];
         const row = document.createElement("tr");
+
         row.innerHTML = `
-            <td><strong>${no.sala}</strong></td>
-            <td>${no.ip} <br><small>${no.rssi}</small></td>
-            <td>${no.temp} / ${no.umid}</td>
-            <td>${no.ruido} / ${no.luz}</td>
-            <td><strong>${no.st}</strong></td>
-            <td><button class="btn-action" onclick="alert('Chamado registrado para: ${no.sala}')">${no.acao}</button></td>
+            <td><strong>${item.nome}</strong></td>
+            <td>-- / --</td>
+            <td><strong>⚪ Offline</strong></td>
+            <td>Aguardando integração ESP32</td>
+            <td>
+                <button class="btn-action bg-wait" onclick="alert('Comando de Reset enviado para ${item.nome}. Aguardando hardware.')">🔄 Soft Reset (Ping)</button>
+            </td>
         `;
         tableBody.appendChild(row);
     });
 }
 
-// Execução ao carregar a página
+// Carrega os reports enviados pelos alunos
+function carregarCaixaDeReports() {
+    const listaReports = document.getElementById("lista-reports");
+    const contadorChamados = document.getElementById("total-chamados");
+    if (!listaReports) return;
+
+    let reportsSalvos = JSON.parse(localStorage.getItem("ctbj_reports") || "[]");
+    
+    // Atualiza o contador de pendências no topo
+    if (contadorChamados) contadorChamados.innerText = reportsSalvos.length;
+
+    listaReports.innerHTML = "";
+
+    if (reportsSalvos.length === 0) {
+        listaReports.innerHTML = "<p>✅ Tudo limpo! Nenhum reporte recebido dos alunos no momento.</p>";
+        return;
+    }
+
+    // Cria as caixas de notificação
+    reportsSalvos.forEach(report => {
+        const li = document.createElement("li");
+        li.className = "report-item";
+        li.innerHTML = `
+            <div class="report-content">
+                <div class="report-meta">📍 <strong>${report.sala}</strong> — 🕒 ${report.data}</div>
+                <div>"${report.mensagem}"</div>
+            </div>
+            <button class="btn-resolve" onclick="resolverReporte(${report.id})">✔️ Marcar Resolvido</button>
+        `;
+        listaReports.appendChild(li);
+    });
+}
+
+// Função Global para o botão de resolver reporte do Técnico
+window.resolverReporte = function(id) {
+    let reportsSalvos = JSON.parse(localStorage.getItem("ctbj_reports") || "[]");
+    reportsSalvos = reportsSalvos.filter(r => r.id !== id);
+    localStorage.setItem("ctbj_reports", JSON.stringify(reportsSalvos));
+    carregarCaixaDeReports(); // Recarrega a lista
+};
+
+
+// ==========================================
+// CONFIGURAÇÕES GERAIS E TEMA
+// ==========================================
+function inicializarTema() {
+    const btnTheme = document.getElementById("btn-theme");
+    if (!btnTheme) return;
+
+    const temaSalvo = localStorage.getItem("theme");
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark-mode");
+        btnTheme.innerText = "☀️ Modo Claro";
+    }
+
+    btnTheme.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        btnTheme.innerText = isDark ? "☀️ Modo Claro" : "🌙 Modo Escuro";
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+}
+
+// Executa ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
-    atualizarPaginaAlunos();
-    atualizarPaginaTecnica();
+    inicializarTema();
+    inicializarAutenticacao();
+    inicializarSistemaReporte();
+    carregarCaixaDeReports();
+
+    // Comportamento do Seletor (Apenas na tela de Alunos)
+    const selectElem = document.getElementById("select-sala");
+    if (selectElem) {
+        carregarDadosSala(selectElem.value);
+        selectElem.addEventListener("change", (e) => {
+            carregarDadosSala(e.target.value);
+        });
+    }
+
+    carregarTabelaTecnica();
 });
